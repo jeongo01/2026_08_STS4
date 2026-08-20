@@ -15,27 +15,44 @@ public class UsrArticleController {
 	private int lastArticleId;
 	private List<Article> articles;
 
+	// 생성자
 	public UsrArticleController() {
 		this.lastArticleId = 0;
 		this.articles = new ArrayList<>();
+		
+		makeTestData();
+	}
+
+	private void makeTestData() {
+		for(int i = 0; i < 10; i++) {
+			
+			String title = "제목" + i;
+			String body = "내용" + i;
+			
+			writeArticle(title, body);
+		}	
+	}
+
+	private Article writeArticle(String title, String body) {
+		
+		lastArticleId++;
+		
+		Article article = new Article(lastArticleId, title, body);
+		articles.add(article);
+	
+		return article;
 	}
 
 	@RequestMapping("usr/article/doWrite")
 	@ResponseBody
 	public Article doWrite(String title, String body) {
-		
-		this.lastArticleId++;
-		
-		Article article = new Article(lastArticleId, title, body);
-		
-		this.articles.add(article);
-		
+		Article article = writeArticle(title, body);
 		return article;
 	}
 	
 	@RequestMapping("usr/article/list")
 	@ResponseBody
 	public List<Article> showList() {
-		return this.articles;
+		return articles;
 	}
 }
