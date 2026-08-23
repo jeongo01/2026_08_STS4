@@ -22,7 +22,8 @@ public class UsrArticleController {
 		
 		makeTestData();
 	}
-
+	
+	// 서비스 메서드
 	private void makeTestData() {
 		for(int i = 0; i < 10; i++) {
 			
@@ -31,6 +32,24 @@ public class UsrArticleController {
 			
 			writeArticle(title, body);
 		}	
+	}
+	
+	private Article getArticleById(int id) {
+		for(Article article: articles) {
+			if(article.getId() == id) {
+				return article;
+			}
+		}
+		return null;
+	}
+	
+	private void modifyArticle(Article article, String title, String body) {
+		article.setTitle(title);
+		article.setBody(body);
+	}
+	
+	private void deleteArticle(Article article) {
+		articles.remove(article);		
 	}
 
 	private Article writeArticle(String title, String body) {
@@ -42,7 +61,8 @@ public class UsrArticleController {
 	
 		return article;
 	}
-
+	
+	// 액션 메서드
 	@RequestMapping("usr/article/doWrite")
 	@ResponseBody
 	public Article doWrite(String title, String body) {
@@ -54,5 +74,45 @@ public class UsrArticleController {
 	@ResponseBody
 	public List<Article> showList() {
 		return articles;
+	}
+	
+	@RequestMapping("usr/article/detail")
+	@ResponseBody
+	public Object showDetail(int id) {
+		Article article = getArticleById(id);
+		
+		if(article == null) {
+			return id + "게시물이 없습니다.";
+		}
+		
+		return article;
+	}
+	
+	@RequestMapping("usr/article/modify")
+	@ResponseBody
+	public String doModify(int id, String title, String body) {
+		Article article = getArticleById(id);
+		
+		if(article == null) {
+			return id + "게시물이 없습니다.";
+		}
+		
+		modifyArticle(article, title, body);
+		
+		return id + "게시물을 수정했습니다.";
+	}
+	
+	@RequestMapping("usr/article/delete")
+	@ResponseBody
+	public String doDelete(int id) {
+		Article article = getArticleById(id);
+		
+		if(article == null) {
+			return id + "게시물이 없습니다.";
+		}
+		
+		deleteArticle(article);
+		
+		return id + "게시물을 삭제했습니다.";
 	}
 }
