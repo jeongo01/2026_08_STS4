@@ -23,12 +23,12 @@ public class ArticleService {
 		
 	}
 
-	public void modifyArticle(Article article, String title, String body) {
-		articleDao.modifyArticle(article, title, body);
+	public void modifyArticle(int id, String title, String body) {
+		articleDao.modifyArticle(id, title, body);
 	}
 
-	public void deleteArticle(Article article) {
-		articleDao.deleteArticle(article);
+	public void deleteArticle(int id) {
+		articleDao.deleteArticle(id);
 	}
 
 	public List<Article> getArticles() {
