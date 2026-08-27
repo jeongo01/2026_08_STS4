@@ -3,6 +3,7 @@ package com.koreaIT.demo.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -11,8 +12,17 @@ import com.koreaIT.demo.vo.Article;
 
 @Mapper
 public interface ArticleDao {
-
-	public Article writeArticle(String title, String body);
+	
+	// 돌려받을 데이터가 없기 때문에 void
+	@Insert("""
+			INSERT INTO article
+				SET regDate = NOW()
+					, updateData = NOW()
+					, title = #{title}
+					, `body` = #{body}
+			
+			""")
+	public void writeArticle(String title, String body);
 
 	@Select("""
 			SELECT *
@@ -49,4 +59,15 @@ public interface ArticleDao {
 			    ORDER BY id DESC
 			""")
 	public List<Article> getArticles();
+
+	
+	// 데이터 조회용 메서드
+	// DB에 PK값 요청
+	@Select("""
+			SELECT *
+				FROM article
+				LAST_INSERT_ID()
+			""")
+	public int getLastInsertId();
+	
 }

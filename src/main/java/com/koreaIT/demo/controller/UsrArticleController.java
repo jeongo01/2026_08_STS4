@@ -21,8 +21,13 @@ public class UsrArticleController {
 	@RequestMapping("usr/article/doWrite")
 	@ResponseBody
 	public Article doWrite(String title, String body) {
-		Article article = articleService.writeArticle(title, body);
-		return article;
+		articleService.writeArticle(title, body);
+		
+		// (2): DAO에서 받아온 PK값
+		int id = articleService.getLastInsertId();
+		
+		// (3): 가져온 id로 DB전체를 조회해서 해당하는 글 전부를 가져온다.
+		return articleService.getArticleById(id);
 	}
 	
 	@RequestMapping("usr/article/list")

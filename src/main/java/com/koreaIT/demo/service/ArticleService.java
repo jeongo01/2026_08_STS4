@@ -13,14 +13,12 @@ public class ArticleService {
 	}
 
 
-	public Article writeArticle(String title, String body) {
-		return articleDao.writeArticle(title, body);
-		
+	public void writeArticle(String title, String body) {
+		articleDao.writeArticle(title, body);
 	}
 
 	public Article getArticleById(int id) {
 		return articleDao.getArticleById(id);
-		
 	}
 
 	public void modifyArticle(int id, String title, String body) {
@@ -35,5 +33,8 @@ public class ArticleService {
 		return articleDao.getArticles();
 	}
 	
+	public int getLastInsertId() {
+		return articleDao.getLastInsertId();
+	}
 	
 }
