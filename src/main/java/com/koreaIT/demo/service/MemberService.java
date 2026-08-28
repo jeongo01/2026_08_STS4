@@ -25,5 +25,9 @@ public class MemberService {
 	public int getLastInsertId() {
 		return memberDao.getLastInsertId();
 	}
+
+	public Member getMemberByLoginId(String loginId) {
+		return memberDao.getMemberByLoginId(loginId);
+	}
 	
 }

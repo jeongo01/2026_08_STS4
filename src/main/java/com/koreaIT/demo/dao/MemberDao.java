@@ -33,5 +33,13 @@ public interface MemberDao {
 			SELECT LAST_INSERT_Id()
 			""")
 	public int getLastInsertId();
+
+	
+	@Select("""
+			SELECT *
+				FROM `member`
+				WHERE loginId = #{loginId}
+			""")
+	public Member getMemberByLoginId(String loginId);
 	
 }
