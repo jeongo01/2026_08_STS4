@@ -9,6 +9,8 @@ import com.koreaIT.demo.util.Util;
 import com.koreaIT.demo.vo.Member;
 import com.koreaIT.demo.vo.ResultData;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class UsrMemberController {
 	private MemberService memberService;
@@ -19,7 +21,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("usr/member/join")
 	@ResponseBody
-	public ResultData doJoin(String loginId, String loginPw, String nickname, String name, String cellphoneNum, String email) {
+	public ResultData<Member> doJoin(String loginId, String loginPw, String nickname, String name, String cellphoneNum, String email) {
 		
 		if(Util.empty(loginId)) {
 			return ResultData.from("F-1", "아이디를 입력해주세요.");
@@ -58,5 +60,19 @@ public class UsrMemberController {
 		
 		
 		return ResultData.from("S-1", "회원가입 성공", memberService.getMemberById(id));
+	}
+	
+	public String test1(HttpSession session) {
+		session.setAttribute("test", "test");
+		
+		return "session에 값 저장";
+	}
+	
+	public String test2(HttpSession session) {
+		if(session.getAttribute("test") != null) {
+			return "session불러오기 성공: " + session.getAttribute("test") + " / success";
+		}
+		
+		return "session 불러오기 실패";
 	}
 }
