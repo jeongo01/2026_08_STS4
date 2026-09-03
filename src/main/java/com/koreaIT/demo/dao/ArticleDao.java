@@ -18,12 +18,12 @@ public interface ArticleDao {
 			INSERT INTO article
 				SET regDate = NOW()
 					, updateData = NOW()
-					, memberId = 3;
+					, memberId = {memberId};
 					, title = #{title}
 					, `body` = #{body}
 			
 			""")
-	public void writeArticle(String title, String body);
+	public void writeArticle(int memberId, String title, String body);
 
 	@Select("""
 			SELECT *
