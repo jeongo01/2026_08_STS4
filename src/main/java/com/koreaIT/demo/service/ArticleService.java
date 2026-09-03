@@ -2,16 +2,19 @@ package com.koreaIT.demo.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.koreaIT.demo.dao.ArticleDao;
 import com.koreaIT.demo.vo.Article;
 
+
+@Service
 public class ArticleService {
 	private ArticleDao articleDao;
 	
 	public ArticleService(ArticleDao articleDao) {
 		this.articleDao = articleDao;
 	}
-
 
 	public void writeArticle(int memberId, String title, String body) {
 		articleDao.writeArticle(memberId, title, body);
