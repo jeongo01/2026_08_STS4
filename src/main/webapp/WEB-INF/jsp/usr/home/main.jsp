@@ -4,8 +4,8 @@
 	<c:set var="page Title" value="MAIN" /> 
 
 <%@ include file="../common/header.jsp" %>
-	<section>
-		<div>
+	<section class="mt-8">
+		<div class="container mx-auto">
 			<div>
 				Lorem.
 			</div>
