@@ -22,12 +22,12 @@
 		<tbody>
 			<c:forEach var="article" items="${articles }">
 				<tr>
-					<td>{article.id }</td>
-					<td>{article.regDate }</td>
-					<td>{article.memberId }</td>
-					<td>{article.title }</td>
+					<td>${article.id }</td>
+					<td>${article.regDate }</td>
+					<td>${article.memberId }</td>
+					<td>${article.title }</td>
 				</tr>
-			<c:forEach>
+			</c:forEach>
 		</tbody>
 	</table>
 </body>
