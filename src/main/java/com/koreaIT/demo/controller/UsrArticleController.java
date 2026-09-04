@@ -3,6 +3,7 @@ package com.koreaIT.demo.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,7 +23,7 @@ public class UsrArticleController {
 		this.articleService = articleService;
 	}
 
-	@RequestMapping("usr/article/doWrite")
+	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
 	public ResultData<Article> doWrite(HttpSession session, String title, String body) {
 		
@@ -45,20 +46,17 @@ public class UsrArticleController {
 		return ResultData.from("S-1", Util.f("%d번 게시물이 작성 되었습니다.", id), articleService.getArticleById(id));
 	}
 	
-	@RequestMapping("usr/article/list")
-	@ResponseBody
-	public ResultData<List<Article>> showList() {
+	@RequestMapping("/usr/article/list")
+	public String showList(Model model) {
 		
 		List<Article> articles = articleService.getArticles();
 		
-		if(articles.size() == 0) {
-			return ResultData.from("F-1", "게시물이 존재하지 않습니다.");
-		}
+		model.addAttribute("articles", articles);
 		
-		return ResultData.from("S-1", "게시물 목록", articles);
+		return "usr/article/list";
 	}
 	
-	@RequestMapping("usr/article/detail")
+	@RequestMapping("/usr/article/detail")
 	@ResponseBody
 	public ResultData<Article> showDetail(int id) {
 		Article article = articleService.getArticleById(id);
@@ -70,7 +68,7 @@ public class UsrArticleController {
 		return ResultData.from("S-1", Util.f("%d번 게시물", id), article);
 	}
 	
-	@RequestMapping("usr/article/modify")
+	@RequestMapping("/usr/article/modify")
 	@ResponseBody
 	public ResultData doModify(HttpSession session, int id, String title, String body) {
 		
@@ -93,7 +91,7 @@ public class UsrArticleController {
 		return ResultData.from("S-1", Util.f("%d번 게시물을 수정했습니다.", id));
 	}
 	
-	@RequestMapping("usr/article/delete")
+	@RequestMapping("/usr/article/delete")
 	@ResponseBody
 	public ResultData doDelete(HttpSession session, int id) {
 		
