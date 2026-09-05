@@ -39,6 +39,11 @@
 			
 			<div>
 				<button onclick="history.back();">뒤로가기</button>
+				
+				<c:if test="${loginMemberId == article.memberId}">
+					<a href="modify?id=${article.id }">수정</a>
+					<a href="doDelete?id=${article.id }" onclick="if(confirm('삭제 하시겠습니까?') == false) == return false;" >삭제</a>
+				</c:if>
 			</div>
 		</div>
 	</section>
