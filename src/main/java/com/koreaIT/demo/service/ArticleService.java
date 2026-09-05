@@ -39,5 +39,9 @@ public class ArticleService {
 	public int getLastInsertId() {
 		return articleDao.getLastInsertId();
 	}
+
+	public Article forPrintArticle(int id) {
+		return articleDao.forPrintArticle(id);
+	}
 	
 }
