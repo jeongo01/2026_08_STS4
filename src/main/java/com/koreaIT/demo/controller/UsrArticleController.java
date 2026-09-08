@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.koreaIT.demo.service.ArticleService;
 import com.koreaIT.demo.util.Util;
 import com.koreaIT.demo.vo.Article;
-import com.koreaIT.demo.vo.ResultData;
 import com.koreaIT.demo.vo.Rq;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsrArticleController {
@@ -29,11 +27,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public String doWrite(HttpServletRequest req, String title, String body) {
 		
-		Rq rq = new Rq(req);
-		
-		if(rq.getLoginedMemberId() == 0) {
-			return Util.jsHistoryBack("로그인 후 이용해주세요.");
-		}
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if(Util.empty(title)) {
 			return Util.jsHistoryBack("제목을 입력해 주세요.");
@@ -63,7 +57,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(HttpServletRequest req, Model model, int id) {
 		
-		Rq rq = new Rq(req);
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		Article article = articleService.forPrintArticle(id);
 		
@@ -76,11 +70,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public String doModify(HttpServletRequest req, int id, String title, String body) {
 		
-		Rq rq = new Rq(req);
-		
-		if(rq.getLoginedMemberId() == 0) {
-			return Util.jsHistoryBack("로그인 후 이용해주세요.");
-		}
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		Article article = articleService.getArticleById(id);
 		
@@ -101,7 +91,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public String doDelete(HttpServletRequest req, int id) {
 		
-		Rq rq = new Rq(req);
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if(rq.getLoginedMemberId() == 0) {
 			return Util.jsHistoryBack("로그인 후에 이용해주세요.");
@@ -120,18 +110,6 @@ public class UsrArticleController {
 		articleService.deleteArticle(id);
 		
 		return Util.jsReplace(Util.f("%d번 게시물을 삭제했습니다.", id), "list");
-	}
-	
-	@RequestMapping("/usr/article/test")
-	@ResponseBody
-	public String test() {
-		return Util.jsHistoryBack("test");
-	}
-	
-	@RequestMapping("/usr/article/test2")
-	@ResponseBody
-	public String test2() {
-		return Util.jsReplace("test2", "list");
 	}
 
 }
