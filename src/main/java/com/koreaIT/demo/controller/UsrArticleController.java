@@ -67,6 +67,26 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/modify")
+	public String modify(HttpServletRequest req, Model model, int id) {
+		
+		Rq rq = (Rq) req.getAttribute("rq");
+		
+		Article article = articleService.forPrintArticle(id);
+		
+		if(article == null) {
+			return rq.jsReturnOnView(Util.f("%s번 게시물은 존재하지 않습니다.", id));
+		}
+		
+		if(rq.getLoginedMemberId() == article.getMemberId()) {
+			return rq.jsReturnOnView("해당 게시물에 대한 권한이 없습니다.");
+		}
+		
+		model.addAttribute("article", article);
+		
+		return "/usr/article/modify";
+	}
+	
+	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public String doModify(HttpServletRequest req, int id, String title, String body) {
 		
@@ -78,7 +98,7 @@ public class UsrArticleController {
 			return Util.jsHistoryBack(Util.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
 		
-		if(article.getMemberId() != (int) rq.getLoginedMemberId()) {
+		if(article.getMemberId() != rq.getLoginedMemberId()) {
 			return Util.jsHistoryBack("해당 게시물에 대한 권한이 없습니다.");
 		}
 		
