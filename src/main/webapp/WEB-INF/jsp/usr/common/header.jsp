@@ -22,7 +22,12 @@
 		<ul class="flex">
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/">HOME</a></li>
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list">LIST</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
+			<c:if test="${rq.loginedMemberId == 0}">
+				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
+			</c:if>
+			<c:if test="${rq.loginedMemberId != 0}">
+				<li class="hover:underline"><a class="h-full px-3 flex itmes-center" href="/usr/member/logout">Logout</a></li>	
+			</c:if>
 		</ul>	
 	</div>
 	
