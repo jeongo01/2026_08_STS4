@@ -19,6 +19,41 @@ public class UsrMemberController {
 		this.memberService = memberService;
 	}
 	
+	@RequestMapping("/usr/member/login")
+	public String login() {
+		return "usr/member/login";
+	}
+	
+	@RequestMapping("usr/member/doLogin")
+	@ResponseBody
+	public String doLogin(HttpSession session, String loginId, String loginPw) {
+		if(session.getAttribute("loginMemberId") != null) {
+			return Util.jsHistoryBack("로그아웃 후 이용하세요.");
+		}
+		
+		if(Util.empty(loginId)) {
+			return Util.jsHistoryBack("아이디를 입력해주세요.");
+		}
+		
+		if(Util.empty(loginPw)) {
+			return Util.jsHistoryBack("비밀번호를 입력해주세요.");
+		}
+		
+		Member member = memberService.getMemberByLoginId(loginId);
+		
+		if(member == null) {
+			return Util.jsHistoryBack(Util.f("%s는 존재하지 않는 아이디입니다.", loginId));
+		}
+		
+		if(member.getLoginPw().equals(loginPw) == false) {
+			return Util.jsHistoryBack("비밀번호를 다시 입력해주세요.");
+		}
+		
+		session.setAttribute("loginMemberId", member.getId());
+		
+		return Util.jsReplace(Util.f("%s님 환영합니다.",member.getNickname()), "/");
+	}
+	
 	@RequestMapping("usr/member/join")
 	@ResponseBody
 	public ResultData<Member> doJoin(String loginId, String loginPw, String nickname, String name, String cellphoneNum, String email) {
@@ -62,48 +97,16 @@ public class UsrMemberController {
 		return ResultData.from("S-1", "회원가입 성공", memberService.getMemberById(id));
 	}
 	
-	
-	@RequestMapping("usr/member/doLogin")
-	@ResponseBody
-	public ResultData doLogin(HttpSession session, String loginId, String loginPw) {
-		if(session.getAttribute("loginMemberId") != null) {
-			return ResultData.from("F-L", "로그아웃 후 이용하세요.");
-		}
-		
-		if(Util.empty(loginId)) {
-			return ResultData.from("F-1", "아이디를 입력해주세요.");
-		}
-		
-		if(Util.empty(loginPw)) {
-			return ResultData.from("F-2", "");
-		}
-		
-		Member member = memberService.getMemberByLoginId(loginId);
-		
-		if(member == null) {
-			return ResultData.from("F-3", Util.f("%s는 존재하지 않는 아이디입니다.", loginId));
-		}
-		
-		if(member.getLoginPw().equals(loginPw) == false) {
-			return ResultData.from("F-4", "비밀번호를 다시 입력해주세요.");
-		}
-		
-		session.setAttribute("loginMemberId", member.getId());
-		
-		return ResultData.from("S-1", Util.f("%s님 환영합니다.",member.getNickname()));
-	}
-	
-	
 	@RequestMapping("usr/member/doLogout")
 	@ResponseBody
-	public ResultData doLogout(HttpSession session) {
+	public String doLogout(HttpSession session) {
 		
 		if(session.getAttribute("loginedMemberId") == null) {
-			return ResultData.from("F-L", "로그인 후 이용해주세요.");
+			return Util.jsHistoryBack("로그인 후 이용해주세요.");
 		}
 		
 		session.removeAttribute("loginedMemberId");
 		
-		return ResultData.from("S-1", "정상적으로 로그아웃 되었습니다.");
+		return Util.jsReplace("정상적으로 로그아웃 되었습니다.", "/");
 	}
 }
