@@ -5,8 +5,12 @@
 	<c:set var="pageTitle" value="${board.name }"/>
 
 <%@ include file="../common/header.jsp" %>
+
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
+		<div class="mb-2 text-base">
+			<div ><span>총: ${aritlceCnt } 개</span></div>
+		</div>
 		<div>
 			<table class="table table-lg">
 				<thead class="text-lg">
@@ -36,4 +40,5 @@
 		</c:if>
 	</div>
 </section>
+
 <%@ include file="../common/footer.jsp" %>

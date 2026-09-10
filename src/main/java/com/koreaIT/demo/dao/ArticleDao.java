@@ -13,7 +13,6 @@ import com.koreaIT.demo.vo.Article;
 @Mapper
 public interface ArticleDao {
 	
-	// 돌려받을 데이터가 없기 때문에 void
 	@Insert("""
 			INSERT INTO article
 				SET regDate = NOW()
@@ -21,7 +20,6 @@ public interface ArticleDao {
 					, memberId = {memberId};
 					, title = #{title}
 					, `body` = #{body}
-			
 			""")
 	public void writeArticle(int memberId, String title, String body);
 
@@ -48,8 +46,7 @@ public interface ArticleDao {
 	public void modifyArticle(int id, String title, String body);
 
 	@Delete("""
-			SELECT *
-				FROM article
+			DELETE FROM article
 				WHERE id = #{id}
 			""")
 	public void deleteArticle(int id);
@@ -65,9 +62,7 @@ public interface ArticleDao {
 	public List<Article> getArticles(int boardId);
 
 	@Select("""
-			SELECT *
-				FROM article
-				LAST_INSERT_ID()
+			SELECT LAST_INSERT_ID()
 			""")
 	public int getLastInsertId();
 
@@ -76,8 +71,14 @@ public interface ArticleDao {
 				FROM article AS A
 				INNER JOIN `member` AS M
 				ON A.memberId = M.id 
+				WHERE A.id = #{id}
 			""")
 	public Article forPrintArticle(int id);
 
-	
+	@Select("""
+			SELECT COUNT(*)
+				FROM article	
+				WHERE boardId = #{boardId}
+			""")
+	public int getArticlesCnt(int boardId);
 }

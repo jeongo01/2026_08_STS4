@@ -43,5 +43,9 @@ public class ArticleService {
 	public Article forPrintArticle(int id) {
 		return articleDao.forPrintArticle(id);
 	}
+
+	public int getArticlesCnt(int boardId) {
+		return articleDao.getArticlesCnt(boardId);
+	}
 	
 }
