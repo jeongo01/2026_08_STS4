@@ -22,9 +22,6 @@
 			
 			form.submit();
 		}
-		
-		
-		
 	</script>
 
 
@@ -35,21 +32,21 @@
 					<table class="table table-lg">
 						<tr>
 							<th>아이디</th>
-							<td><input class="w-96" name="loginId" type="text" placeholder="아이디를 입력해주세요."/></td>
+							<td><input class="input input-outline input-info w-96" name="loginId" type="text" placeholder="아이디를 입력해주세요."/></td>
 						</tr>
 						<tr>
 							<th>비밀번호</th>
-							<td><input class="w-96" name="loginPw" type="text" placeholder="비밀번호를 입력해주세요."/></td>
+							<td><input class="input input-outline input-info w-96" name="loginPw" type="text" placeholder="비밀번호를 입력해주세요."/></td>
 						</tr>
 						<tr>
-							<td colspan="2"><button>로그인</button></td>
+							<td class="text-center" colspan="2"><button class="btn btn-wide btn-outline btn-sm">로그인</button></td>
 						</tr>
 					</table>
 				</div>
 			</form>
 			
-			<div>
-				<button onclick="history.back();">뒤로가기</button>
+			<div class="mt-2">
+				<button class="btn btn-outline btn-sm" onclick="history.back();">뒤로가기</button>
 			</div>
 		</div>
 	</section>

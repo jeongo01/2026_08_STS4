@@ -52,21 +52,21 @@
 						</tr>
 						<tr>
 							<th>제목</th>
-							<td><input class="w-96" name="title" type="text" value="${article.id }" placeholder="제목을 입력해주세요."/></td>
+							<td><input class="input input-bordered input-info w-96" name="title" type="text" value="${article.id }" placeholder="제목을 입력해주세요."/></td>
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea class="w-96" name="body" placeholder="내용을 입력해주세요.">${article.body }</textarea></td>
+							<td><textarea class="input input-boredered input-info w-96" name="body" placeholder="내용을 입력해주세요.">${article.body }</textarea></td>
 						</tr>
 						<tr>
-							<button colspan="2">수정</button>
+							<td class="text-center" colspan="2"><button class="btn btn-wide btn-outline btn-sm">수정</button></td>
 						</tr>
 
 					</table>
 				</div>
 			</form>
-			<div>
-				<button onclick="history.back();">뒤로가기</button>
+			<div class="mt-2">
+				<button class="btn btn-outline btn-sm" onclick="history.back();">뒤로가기</button>
 			</div>
 		</div>
 	</section>
