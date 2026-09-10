@@ -56,7 +56,7 @@
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea class="input input-boredered input-info w-96" name="body" placeholder="내용을 입력해주세요.">${article.body }</textarea></td>
+							<td><textarea class="textarea textarea-boredered textarea-info w-96" name="body" placeholder="내용을 입력해주세요.">${article.body }</textarea></td>
 						</tr>
 						<tr>
 							<td class="text-center" colspan="2"><button class="btn btn-wide btn-outline btn-sm">수정</button></td>

@@ -22,6 +22,11 @@ public class UsrArticleController {
 	public UsrArticleController(ArticleService articleService) {
 		this.articleService = articleService;
 	}
+	
+	@RequestMapping("/usr/article/write")
+	public String write() {
+		return "usr/article/write";
+	}
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody

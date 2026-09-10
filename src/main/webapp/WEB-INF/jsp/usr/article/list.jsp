@@ -21,7 +21,6 @@
 						<th>제목</th>
 						<th>작성일</th>
 						<th>작성자</th>
-						
 					</tr>
 				</thead>
 				<tbody>
@@ -36,6 +35,11 @@
 				</tbody>
 			</table>
 		</div>
+		<c:if test="${rq.getLoginedMemberId != 0}">
+			<div class="mt-2 flex justify-end">
+				<a class="btn btn-outline btn-sm" href="write">글쓰기</a>
+			</div>
+		</c:if>
 	</div>
 </section>
 <%@ include file="../common/footer.jsp" %>
