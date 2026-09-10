@@ -1,16 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
 
-<head>
-	<meta charset="UTF-8">
-	<title>LIST</title>
-</head>
-<body>
-	<h1>LIST PAGE</h1>
-	
+	<c:set var="pageTitle" value="${board.name }"/>
+
+<%@ include file="../common/header.jsp" %>
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div>

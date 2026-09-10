@@ -42,6 +42,7 @@ memberId = 1,
 boardId = 1,
 title = '공지1',
 `body` = '공지1';
+
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -49,6 +50,7 @@ memberId = 2,
 boardId = 2,
 title = '제목2',
 `body` = '내용2';
+
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -82,6 +84,7 @@ SET regDate = NOW(),
 updateDate = NOW(),
 `code` = 'notice',
 `name` = '공지사항';
+
 INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),

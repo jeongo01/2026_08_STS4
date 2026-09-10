@@ -59,13 +59,11 @@ public interface ArticleDao {
 			    FROM article AS A
 			    INNER JOIN `member` AS M
 			    ON A.memberId = M.id
+			    WHERE A.boardId = #{boardId}
 			    ORDER BY id DESC
 			""")
-	public List<Article> getArticles();
+	public List<Article> getArticles(int boardId);
 
-	
-	// 데이터 조회용 메서드
-	// DB에 PK값 요청
 	@Select("""
 			SELECT *
 				FROM article
@@ -80,5 +78,6 @@ public interface ArticleDao {
 				ON A.memberId = M.id 
 			""")
 	public Article forPrintArticle(int id);
+
 	
 }
