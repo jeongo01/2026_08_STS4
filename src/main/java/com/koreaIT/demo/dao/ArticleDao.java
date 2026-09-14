@@ -121,4 +121,13 @@ public interface ArticleDao {
 			</script>
 			""")
 	public int getArticlesCnt(int boardId, String searchKeywordType, String searchKeyword);
+
+	
+	@Update("""
+			UPDATE article
+				SET hitCnt = hitCnt + 1
+				WHERE id = #{id}
+			""")
+	public void increaseHitCnt(int id);
+	
 }

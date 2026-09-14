@@ -102,6 +102,12 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, int id) {
 		
+		if(articleService.getArticleById(id) == null) {
+			return rq.jsReturnOnView(Util.f("%번 게시물은 존재하지 않습니다.", id));
+		}
+		
+		articleService.increaseHtiCnt(id);
+		
 		Article article = articleService.forPrintArticle(id);
 		
 		model.addAttribute("loginMemberId", rq.getLoginedMemberId());
