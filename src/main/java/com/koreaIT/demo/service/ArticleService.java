@@ -48,7 +48,7 @@ public class ArticleService {
 		return articleDao.getArticlesCnt(boardId, searchKeywordType, searchKeyword);
 	}
 
-	public void increaseHtiCnt(int id) {
+	public void increaseHitCnt(int id) {
 		articleDao.increaseHitCnt(id);
 	}
 	

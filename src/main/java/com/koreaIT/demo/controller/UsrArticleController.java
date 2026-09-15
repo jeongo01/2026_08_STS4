@@ -15,6 +15,10 @@ import com.koreaIT.demo.vo.Article;
 import com.koreaIT.demo.vo.Board;
 import com.koreaIT.demo.vo.Rq;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 @Controller
 public class UsrArticleController {
 	
@@ -100,13 +104,40 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(Model model, int id) {
+	public String showDetail(HttpServletRequest req, HttpServletResponse resp, Model model, int id) {
 		
 		if(articleService.getArticleById(id) == null) {
 			return rq.jsReturnOnView(Util.f("%번 게시물은 존재하지 않습니다.", id));
 		}
 		
-		articleService.increaseHtiCnt(id);
+		Cookie oldCookie = null;
+		Cookie[] cookies = req.getCookies();
+		
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().equals("hitCnt")) {
+					oldCookie = cookie;
+				}
+			}
+		}
+		
+		if(oldCookie != null) {
+			if(oldCookie.getValue().contains("[" + id + "]") == false) {
+				articleService.increaseHitCnt(id);
+				oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+				oldCookie.setPath("/");
+				oldCookie.setMaxAge(10);
+				resp.addCookie(oldCookie);
+			}
+			
+		} else {
+			articleService.increaseHitCnt(id);
+			Cookie newCookie = new Cookie("hitCnt", "[" + id + "]");
+			newCookie.setPath("/");
+			newCookie.setMaxAge(20);
+			resp.addCookie(newCookie);
+		}
+		
 		
 		Article article = articleService.forPrintArticle(id);
 		
