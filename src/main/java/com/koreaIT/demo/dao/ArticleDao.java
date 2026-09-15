@@ -54,10 +54,15 @@ public interface ArticleDao {
 
 	@Select("""
 			<script>
-			SELECT A.*, nickname AS writerName
+			SELECT A.*
+					, M.nickname AS writerName
+					, IFNULL(SUM(R.point), 0) AS `point`
 			    FROM article AS A
 			    INNER JOIN `member` AS M
 			    ON A.memberId = M.id
+			    LEFT JOIN recommendPoint AS R
+			    ON R.relTypeCode = 'article'
+			    AND A.id = R.relId
 			    WHERE A.boardId = #{boardId}
 			    <if text="searchKeyword != ''">
 			    	<choose>
@@ -75,6 +80,7 @@ public interface ArticleDao {
 			    		</otherwise>
 			    	</choose>
 			    </if>
+			    GROUB BY A.id
 			    ORDER BY id DESC
 			    LIMIT #{limitStart}, #{itemsInAPage}
 		    </script>
@@ -87,11 +93,17 @@ public interface ArticleDao {
 	public int getLastInsertId();
 
 	@Select("""
-			SELECT A.*, nickname AS writerName
+			SELECT A.*
+					, M.nickname AS writerName
+					, IFNULL(SUM(R.point), 0) AS `point`
 				FROM article AS A
 				INNER JOIN `member` AS M
-				ON A.memberId = M.id 
+				ON A.memberId = M.id
+				LEFT JOIN recommndPoint AS R
+				ON R.relTypeCode = 'article'
+				AND A.id = R.relId
 				WHERE A.id = #{id}
+				GROUB BY A.id
 			""")
 	public Article forPrintArticle(int id);
 
