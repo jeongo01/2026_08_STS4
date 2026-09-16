@@ -7,7 +7,7 @@
 <%@ include file="../common/header.jsp" %>
 
 	<script>
-		$(document).ready(function() {
+		$(function() {
 			getRecommendPoint();
 		})
 		
