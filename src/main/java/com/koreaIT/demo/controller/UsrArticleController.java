@@ -208,25 +208,4 @@ public class UsrArticleController {
 		return Util.jsReplace(Util.f("%d번 게시물을 삭제했습니다.", id), "list");
 	}
 	
-	@RequestMapping("/usr/recommendPoint/insertPoint")
-	@ResponseBody
-	public String insertPoint(String relTypeCode, int id) {
-		articleService.insertPoint(rq.getLoginedMemberId(), relTypeCode, id);
-		return Util.jsReplace("좋아요 성공", Util.f("../article/detail?id=%d", id));
-	}
-	
-	@RequestMapping("/usr/recommendPoint/deletePoint")
-	@ResponseBody
-	public String deletePoint(String relTypeCode, int id) {
-		articleService.deletePoint(rq.getLoginedMemberId(), relTypeCode, id);
-		return Util.jsReplace("삭제", Util.f("../article/detail?id=%d", id));
-	}
-	
-	@RequestMapping("/usr/recommendPoint/getRecommendPoint")
-	@ResponseBody
-	public ResultData<RecommendPoint> getRecommendPoint(String relTypeCode, int relId) {
-		RecommendPoint recommendPoint = articleService.getRecommendPoint(rq.getLoginedMemberId(), relTypeCode, relId);
-		return ResultData.from("S-1", "", recommendPoint);
-	}
-
 }

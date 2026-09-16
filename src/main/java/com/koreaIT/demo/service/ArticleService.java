@@ -53,16 +53,4 @@ public class ArticleService {
 		articleDao.increaseHitCnt(id);
 	}
 
-	public void insertPoint(int memberId, String relTypeCode, int relId) {
-		articleDao.insertPoint(memberId, relTypeCode, relId);
-	}
-
-	public void deletePoint(int loginedMemberId, String relTypeCode, int id) {
-		articleDao.deletePoint(loginedMemberId, relTypeCode, id);
-	}
-
-	public RecommendPoint getRecommendPoint(int loginedMemberId, String relTypeCode, int relId) {
-		return articleDao.getRecommendPoint(loginedMemberId, relTypeCode, relId);
-	}
-	
 }
