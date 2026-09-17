@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koreaIT.demo.service.ArticleService;
 import com.koreaIT.demo.service.BoardService;
+import com.koreaIT.demo.service.ReplyService;
 import com.koreaIT.demo.util.Util;
 import com.koreaIT.demo.vo.Article;
 import com.koreaIT.demo.vo.Board;
-import com.koreaIT.demo.vo.RecommendPoint;
-import com.koreaIT.demo.vo.ResultData;
+import com.koreaIT.demo.vo.Reply;
 import com.koreaIT.demo.vo.Rq;
 
 import jakarta.servlet.http.Cookie;
@@ -26,11 +26,13 @@ public class UsrArticleController {
 	
 	private ArticleService articleService;
 	private BoardService boardService;
+	private ReplyService replyService;
 	private Rq rq;
 	
-	public UsrArticleController(ArticleService articleService, BoardService boardService, Rq rq) {
+	public UsrArticleController(ArticleService articleService, BoardService boardService, ReplyService replyService, Rq rq) {
 		this.articleService = articleService;
 		this.boardService = boardService;
+		this.replyService = replyService;
 		this.rq = rq;
 	}
 	
@@ -143,7 +145,10 @@ public class UsrArticleController {
 		
 		Article article = articleService.forPrintArticle(id);
 		
-		model.addAttribute("loginMemberId", rq.getLoginedMemberId());
+		List<Reply> replies = replyService.getReplies("article", id);
+		
+		model.addAttribute("article", article);
+		model.addAttribute("replies", replies);
 		
 		return "usr/article/detail";
 	}
