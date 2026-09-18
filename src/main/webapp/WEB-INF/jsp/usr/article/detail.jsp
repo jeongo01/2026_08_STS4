@@ -1,4 +1,5 @@
-	pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 	<c:set var="pageTitle" value="DETAIL"/>
@@ -8,9 +9,31 @@
 	<script>
 		$(function() {
 			getRecommendPoint();
-		})
+			//비동기 처리
+			$('#recommendBtn').click(function() {
+				let recommendBtn = $('#recommendBtn').hasClass('btn-active');		
+						
+				$.ajax({
+					url : "../recommendPoint/getRecommendPoint",
+					method : "get",
+					data : {
+						"relTypeCode" : "article",
+						"relId" : ${article.id },
+						"recommendBtn" : recommendBtn
+					},
+					dataType : "text",
+					success : function(data){
+					},
+					error : function(xhr, status, error){
+						console.error("ERROR : " + status + " - " + error);
+					}
+				})
+				
+				location.reload();
+			})
+		)}
 		
-		const getRecommendPoint = function() {
+		const getRecommendPoint = function(){
 			$.ajax({
 				url : "../recommendPoint/getRecommendPoint",
 				method : "get",
@@ -20,13 +43,15 @@
 				},
 				dataType : "json",
 				success : function(data){
-					console.log(data);
+					if (data.success) {
+						$('#recommendBtn').addClass('btn-active');
+					}
 				},
 				error : function(xhr, status, error){
 					console.error("ERROR : " + status + " - " + error);
 				}
 			})
-		}		
+		}
 	</script>
 
 	<section class="mt-8 text-xl">
@@ -61,13 +86,7 @@
 							</c:if>
 							
 							<c:if test="rq.loginedMemberId != 0">
-								<c:if test="${recommendPoint == null }">
-									<a class="btn btn-outline btn-xs mr-8" href="../recommendPoint/insertPoint?id=${article.id }&relTypeCode=article">좋아요👍</a>
-								</c:if>
-								
-								<c:if test="${recommendPoint != null}">
-									<a class="btn btn-outline btn-active btn-xs mr-8" href="../recommendPoint/deletePoint?id=${article.id }&relTypeCode=article">좋아요👍</a>
-								</c:if>
+								<button id="recommendBtn" class="btn btn-outline btn-xs mr-8">좋아요</button>
 								<span>${article.point }개</span>
 							</c:if>
 							
@@ -115,7 +134,18 @@
 			
 			<c:forEach var="reply" items="${replies }">
 				<div class="py-2 pl-16 border-bottem-line">
-					<div>${reply.writerName }</div>
+					<div class="flex justify-between items-end">
+						<div>${reply.writerName }</div>
+						<div class="dropdown dropdown-end">
+							<button class="btn btn-circle btn-ghost btn-sm">
+						    	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+						    </button>
+							<ul tabinbox="0" class="z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-24">
+								<li><a>수정</a></li>
+								<li><a>삭제</a></li>
+							</ul>
+						</div>
+					</div>
 					<div class="my-1 text-lg ml-2">${reply.getForprintBody() }</div>
 					<div class="text-xs text-gray-400">${reply.updateDate() }</div>
 				</div>
