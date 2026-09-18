@@ -24,4 +24,12 @@ public class ReplyService {
 		return replyDao.getReplies(relTypeCode, relId);
 	}
 
+	public void deleteReply(int id) {
+		replyDao.deleteReply(id);
+	}
+
+	public Reply getReplyById(int id) {
+		return replyDao.getReplyById(id);
+	}
+
 }
