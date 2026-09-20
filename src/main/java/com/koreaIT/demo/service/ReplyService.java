@@ -32,4 +32,8 @@ public class ReplyService {
 		return replyDao.getReplyById(id);
 	}
 
+	public Reply forPrintReply(int id) {
+		return replyDao.forPrintReply(id);
+	}
+
 }

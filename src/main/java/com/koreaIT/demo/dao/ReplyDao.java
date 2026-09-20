@@ -47,4 +47,14 @@ public interface ReplyDao {
 			""")
 	public Reply getReplyById(int id);
 
+	@Select("""
+			SELECT R.*
+					, M.nickName AS writerName
+				FROM reply AS R
+				INNER JOIN `member` AS M
+				ON R.memberId = M.id
+				WHERE id = #{id}
+			""")
+	public Reply forPrintReply(int id);
+
 }

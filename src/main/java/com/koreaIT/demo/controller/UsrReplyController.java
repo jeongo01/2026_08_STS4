@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.koreaIT.demo.service.ReplyService;
 import com.koreaIT.demo.util.Util;
 import com.koreaIT.demo.vo.Reply;
+import com.koreaIT.demo.vo.ResultData;
 import com.koreaIT.demo.vo.Rq;
 
 public class UsrReplyController {
@@ -27,6 +28,22 @@ public class UsrReplyController {
 		
 		return Util.f("<script>location.replace('../article/detail?id=%d')</script>", relId);
 	}
+	
+	@RequestMapping("/usr/reply/getReplyContent")
+	@ResponseBody
+	public ResultData<Reply> getReplyContent(int id) {
+		
+		Reply reply = replyService.forPrintReply(id);
+				
+		if(reply == null) {
+			return ResultData.from("F-1", Util.f("%d번 댓글은 존재하지 않습니다.", id));
+		}
+		
+		return ResultData.from("S-1", "댓글 정보 조회 성공", reply);
+		
+	}
+	
+	
 	
 	@RequestMapping("/usr/reply/doDelete")
 	@ResponseBody
