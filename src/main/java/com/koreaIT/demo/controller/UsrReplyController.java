@@ -67,8 +67,6 @@ public class UsrReplyController {
 		
 	}
 	
-	
-	
 	@RequestMapping("/usr/reply/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {

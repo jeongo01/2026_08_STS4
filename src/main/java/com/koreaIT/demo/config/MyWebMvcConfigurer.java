@@ -24,6 +24,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer{
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		
 		InterceptorRegistration ir;
 		
 		ir = registry.addInterceptor(beforeActionInterceptor);
@@ -41,7 +42,10 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer{
 		ir.addPathPatterns("/usr/recommendPoint/getRecommendPoint");
 		ir.addPathPatterns("/usr/recommendPoint/doRecommendPoint");
 		ir.addPathPatterns("/usr/reply/doWrite");
-		
+		ir.addPathPatterns("/usr/reply/getReplyContent");
+		ir.addPathPatterns("/usr/reply/doModify");
+		ir.addPathPatterns("/usr/reply/doDelete");
+
 		ir = registry.addInterceptor(needLogoutInterceptor);
 		ir.addPathPatterns("/usr/member/doJoin");
 		ir.addPathPatterns("/usr/member/login");
