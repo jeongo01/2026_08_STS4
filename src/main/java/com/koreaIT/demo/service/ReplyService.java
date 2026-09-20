@@ -36,4 +36,8 @@ public class ReplyService {
 		return replyDao.forPrintReply(id);
 	}
 
+	public void modifyReply(int id, String body) {
+		replyDao.modifyReply(id, body);
+	}
+
 }
