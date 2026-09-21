@@ -18,7 +18,4 @@ public class Article {
 	
 	private String writerName;
 	
-	public String getForPrintBody() {
-		return this.body.replaceAll("\n", "<br />");
-	}
 }

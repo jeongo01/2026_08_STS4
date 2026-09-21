@@ -5,10 +5,15 @@
     font-style: normal;
 }
 
-html > body {
+html > body, html > body .toast-ui-editor .ProseMirror, html > body .toastui-editor-contents {
 	font-family: 'NPSfontBold';
 	text-underline-position: under;
 }
+
+html > body .toast-ui-editor .ProseMirror, html > body .toastui-editor-contents {
+	font-size: 12.5rem;	
+}
+
 
 .border-bottom-line {
 	border-bottom: 1px solid #afafaf;
