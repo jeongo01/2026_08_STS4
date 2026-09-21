@@ -100,7 +100,7 @@
 					<tr>
 						<th>내용</th>
 						<td>
-							<div class="toast-Ui-viewer">
+							<div class="toast-ui-viewer">
 								<script type="text/x-template">${article.body }</script>
 							</div>
 						</td>
