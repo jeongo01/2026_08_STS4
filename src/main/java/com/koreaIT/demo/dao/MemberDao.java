@@ -29,11 +29,6 @@ public interface MemberDao {
 			""")
 	public Member getMemberById(int id);
 
-	@Select("""
-			SELECT LAST_INSERT_Id()
-			""")
-	public int getLastInsertId();
-
 	
 	@Select("""
 			SELECT *
